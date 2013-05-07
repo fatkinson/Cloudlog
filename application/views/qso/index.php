@@ -1,24 +1,9 @@
 <!-- JS -->
-
-	<script type="text/javascript" src="<?php echo base_url() ;?>/fancybox/jquery.mousewheel-3.0.4.pack.js"></script>
-	<script type="text/javascript" src="<?php echo base_url() ;?>/fancybox/jquery.fancybox-1.3.4.pack.js"></script>
 	<script type="text/javascript" src="<?php echo base_url() ;?>/js/jquery.jclock.js"></script>
 	<script type="text/javascript" src="<?php echo base_url() ;?>/js/radiohelpers.js"></script>
-
-	<link rel="stylesheet" type="text/css" href="<?php echo base_url() ;?>/fancybox/jquery.fancybox-1.3.4.css" media="screen" />
-
 	<script type="text/javascript">
 
 		$(document).ready(function() {
-			$(".qsobox").fancybox({
-				'autoDimensions'	: false,
-				'width'         	: 700,
-				'height'        	: 300,
-				'transitionIn'		: 'fade',
-				'transitionOut'		: 'fade',
-				'type'				: 'iframe'
-			});
-
 			$(function($) {
 		      var options = {
 		        utc: true
@@ -29,30 +14,28 @@
 
 	</script>
 
-<div id="container">
+<div class="container content">
 
+	<?php if($notice) { ?>
+	<div class="alert alert-info">
+		<?php echo $notice; ?>
+	</div>
+	<?php } ?>
 
-
-<?php if($notice) { ?>
-<div class="alert-message info">
-        <?php echo $notice; ?>
-</div>
-<?php } ?>
-
-<?php if(validation_errors()) { ?>
-<div class="alert-message error">
-        <?php echo validation_errors(); ?>
-</div>
-<?php } ?>
+	<?php if(validation_errors()) { ?>
+	<div class="alert alert-error">
+	  <?php echo validation_errors(); ?>
+	</div>
+	<?php } ?>
 
 	<div class="row show-grid">
-	  <div class="span6">
+	  <div class="span5">
 	 
 	  	<h2>Add QSO</h2>
 		
 		<form id="qso_input" method="post" action="<?php echo site_url('qso'); ?>" name="qsos">
 
-		<table style="margin-bottom: 0px;">
+		<table style="margin-bottom: 0px;" class="table">
 
 			<tr>
 				<td class="title">Date</td>
@@ -139,17 +122,17 @@
 		<div class="info">
 			<input style="border: none; -webkit-box-shadow: none;" size="20" id="country" type="text" name="country" value="" /> <span id="locator_info"></span>
 		</div>
-
-		<ul class="tabs">
+		
+		<ul class="nav nav-tabs" id="qsoTab">
 		  <li class="active"><a href="#home">Home</a></li>
 		  <li><a href="#station">Station</a></li>
 		  <li><a href="#satellite">Satellite</a></li>
 		  <li><a href="#qsl">QSL</a></li>
 		</ul>
-		 
-		<div class="pill-content">
-		  <div class="active" id="home">
-				<table>
+				 
+		<div class="tab-content">
+		  <div class="tab-pane active" id="home">
+				<table class="table">
 					<tr>
 						<td>Propagation Mode</td>
 						<td>
@@ -177,12 +160,12 @@
 					</tr>
 					<tr>
 						<td>IOTA</td>
-						<td><input id="iota_ref" type="text" name="iota_ref" value="" /> e.g: EU-005</td>
+						<td><input id="iota_ref" type="text" name="iota_ref" value="" /><br />e.g: EU-005</td>
 					</tr>
 				</table>
 		  </div>
-		  <div id="station">
-				<table>
+		  <div class="tab-pane" id="station">
+				<table class="table">
 					<tr>
 						<td>Radio</td>
 						<td>
@@ -200,8 +183,8 @@
 					</tr>
 				</table>
 		  </div>
-		  <div id="satellite">
-				<table>
+		  <div class="tab-pane" id="satellite">
+				<table class="table">
 					<tr>
 						<td>Sat Name</td>
 						<td><input id="sat_name" type="text" name="sat_name" value="<?php echo $this->session->userdata('sat_name'); ?>" /></td>
@@ -213,8 +196,8 @@
 					</tr>
 				</table>
 		  </div>
-		  <div id="qsl">
-				<table>
+		  <div class="tab-pane" id="qsl">
+				<table class="table">
 					<tr>
 						<td>Sent</td>
 						<td><select name="qsl_sent">
@@ -238,18 +221,20 @@
 				</table>
 		  </div>
 		</div>
-
-		<div class="actions"><input class="btn primary" type="submit" value="Add QSO" /> <input type="reset" value="Reset" class="btn" /></div>
+		
+		<div class="form-actions">
+			<input class="btn btn-primary" type="submit" value="Add QSO" /> <input type="reset" value="Reset" class="btn" />
+		</div>
 		
 
 		</form>
 	  </div>
-	  <div class="span9 offset1">
+	  <div class="span6 offset1">
 
 		 <div id="partial_view">
 		 	<h2>Last 16 QSOs</h2>
 
-		 	<table class="zebra-striped" width="100%">
+		 	<table class="table table-striped" width="100%">
 				<tr class="log_title titles">
 					<td>Date</td>
 					<td>Time</td>
@@ -289,7 +274,6 @@
 <script type="text/javascript">
 	i=0;
 	$(document).ready(function(){
-
 	// Set the focus input to the callsign field
 	$("#callsign").focus();
 	/* Javascript for controlling rig frequency. */

@@ -5,6 +5,11 @@
 
 		//$('.tabs').tabs();
 		//$('.qsos').tabs();
+		
+		$('#qsoTab a').click(function (e) {
+		  e.preventDefault();
+		  $(this).tab('show');
+		})
 
 		/* Theme buttons */
 		//$( "button, input:submit", ".wrap_content" ).button();
